@@ -1,4 +1,5 @@
 package org.eclipse.hawkbit.app;
+
 /**
  * Copyright (c) 2015 Bosch Software Innovations GmbH and others.
  *
@@ -23,6 +24,7 @@ import org.vaadin.spring.events.EventBus.UIEventBus;
 import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
+import com.vaadin.server.ErrorHandler;
 import com.vaadin.shared.communication.PushMode;
 import com.vaadin.shared.ui.ui.Transport;
 import com.vaadin.spring.annotation.SpringUI;
@@ -46,11 +48,11 @@ public class MyUI extends AbstractHawkbitUI {
     private static final long serialVersionUID = 1L;
 
     @Autowired
-    MyUI(final EventPushStrategy pushStrategy, final UIEventBus eventBus, final UIEventProvider eventProvider, final SpringViewProvider viewProvider,
-            final ApplicationContext context, final DashboardMenu dashboardMenu, final ErrorView errorview,
-            final NotificationUnreadButton notificationUnreadButton, final UiProperties uiProperties,
-            final VaadinMessageSource i18n) {
-        super(pushStrategy, eventBus, eventProvider, viewProvider, context, dashboardMenu, errorview, notificationUnreadButton,
-                uiProperties, i18n);
+    MyUI(final EventPushStrategy pushStrategy, final UIEventBus eventBus, final UIEventProvider eventProvider,
+            final SpringViewProvider viewProvider, final ApplicationContext context, final DashboardMenu dashboardMenu,
+            final ErrorView errorview, final NotificationUnreadButton notificationUnreadButton,
+            final UiProperties uiProperties, final VaadinMessageSource i18n, final ErrorHandler uiErrorHandler) {
+        super(pushStrategy, eventBus, eventProvider, viewProvider, context, dashboardMenu, errorview,
+                notificationUnreadButton, uiProperties, i18n, uiErrorHandler);
     }
 }
