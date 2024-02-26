@@ -10,7 +10,7 @@
 package org.eclipse.hawkbit.mgmt.client.resource.builder;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.hawkbit.mgmt.json.model.softwaremodule.MgmtSoftwareModuleRequestBodyPost;
@@ -72,41 +72,38 @@ public class SoftwareModuleTypeBuilder {
 
     /**
      * Builds a list with a single entry of
-     * {@link MgmtSoftwareModuleTypeRequestBodyPost} which can directly be used
-     * in the RESTful-API.
+     * {@link MgmtSoftwareModuleTypeRequestBodyPost} which can directly be used in
+     * the RESTful-API.
      * 
-     * @return a single entry list of
-     *         {@link MgmtSoftwareModuleTypeRequestBodyPost}
+     * @return a single entry list of {@link MgmtSoftwareModuleTypeRequestBodyPost}
      */
     public List<MgmtSoftwareModuleTypeRequestBodyPost> build() {
-        return Arrays.asList(doBuild(""));
+        return Collections.singletonList(doBuild(key, name));
     }
 
     /**
-     * Builds a list of multiple {@link MgmtSoftwareModuleTypeRequestBodyPost}
-     * to create multiple software module types at once. An increasing number
-     * will be added to the name and key of the software module type.
+     * Builds a list of multiple {@link MgmtSoftwareModuleTypeRequestBodyPost} to
+     * create multiple software module types at once. An increasing number will be
+     * added to the name and key of the software module type.
      * 
      * @param count
-     *            the amount of software module type bodies which should be
-     *            created
+     *            the amount of software module type bodies which should be created
      * @return a list of {@link MgmtSoftwareModuleTypeRequestBodyPost}
      */
     public List<MgmtSoftwareModuleTypeRequestBodyPost> buildAsList(final int count) {
         final List<MgmtSoftwareModuleTypeRequestBodyPost> bodyList = new ArrayList<>();
         for (int index = 0; index < count; index++) {
-            bodyList.add(doBuild(String.valueOf(index)));
+            bodyList.add(doBuild(key + index, name + index));
         }
         return bodyList;
     }
 
-    private MgmtSoftwareModuleTypeRequestBodyPost doBuild(final String suffix) {
+    private MgmtSoftwareModuleTypeRequestBodyPost doBuild(final String key, final String name) {
         final MgmtSoftwareModuleTypeRequestBodyPost body = new MgmtSoftwareModuleTypeRequestBodyPost();
-        body.setKey(key + suffix);
-        body.setName(name + suffix);
+        body.setKey(key);
+        body.setName(name);
         body.setDescription(description);
         body.setMaxAssignments(maxAssignments);
         return body;
     }
-
 }

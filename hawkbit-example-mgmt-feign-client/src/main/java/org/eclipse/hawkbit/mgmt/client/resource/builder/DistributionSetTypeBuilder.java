@@ -10,7 +10,7 @@
 package org.eclipse.hawkbit.mgmt.client.resource.builder;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.hawkbit.mgmt.json.model.distributionsettype.MgmtDistributionSetTypeRequestBodyPost;
@@ -63,8 +63,8 @@ public class DistributionSetTypeBuilder {
 
     /**
      * @param softwareModuleTypeIds
-     *            the IDs of the software module types which should be mandatory
-     *            for the distribution set type
+     *            the IDs of the software module types which should be mandatory for
+     *            the distribution set type
      * @return the builder itself
      */
     public DistributionSetTypeBuilder mandatorymodules(final Long... softwareModuleTypeIds) {
@@ -79,8 +79,8 @@ public class DistributionSetTypeBuilder {
     /**
      * 
      * @param softwareModuleTypeIds
-     *            the IDs of the software module types which should be optional
-     *            for the distribution set type
+     *            the IDs of the software module types which should be optional for
+     *            the distribution set type
      * @return the builder itself
      */
     public DistributionSetTypeBuilder optionalmodules(final Long... softwareModuleTypeIds) {
@@ -94,44 +94,40 @@ public class DistributionSetTypeBuilder {
 
     /**
      * Builds a list with a single entry of
-     * {@link MgmtDistributionSetTypeRequestBodyPost} which can directly be used
-     * in the RESTful-API.
+     * {@link MgmtDistributionSetTypeRequestBodyPost} which can directly be used in
+     * the RESTful-API.
      * 
-     * @return a single entry list of
-     *         {@link MgmtDistributionSetTypeRequestBodyPost}
+     * @return a single entry list of {@link MgmtDistributionSetTypeRequestBodyPost}
      */
     public List<MgmtDistributionSetTypeRequestBodyPost> build() {
-        return Arrays.asList(doBuild(""));
+        return Collections.singletonList(doBuild(key, name));
     }
 
     /**
-     * Builds a list of multiple {@link MgmtDistributionSetTypeRequestBodyPost}
-     * to create multiple distribution set types at once. An increasing number
-     * will be added to the name and key of the distribution set type. The
-     * optional and mandatory software module types will remain the same.
+     * Builds a list of multiple {@link MgmtDistributionSetTypeRequestBodyPost} to
+     * create multiple distribution set types at once. An increasing number will be
+     * added to the name and key of the distribution set type. The optional and
+     * mandatory software module types will remain the same.
      * 
      * @param count
-     *            the amount of distribution sets type body which should be
-     *            created
+     *            the amount of distribution sets type body which should be created
      * @return a list of {@link MgmtDistributionSetTypeRequestBodyPost}
      */
     public List<MgmtDistributionSetTypeRequestBodyPost> buildAsList(final int count) {
         final List<MgmtDistributionSetTypeRequestBodyPost> bodyList = new ArrayList<>();
         for (int index = 0; index < count; index++) {
-            bodyList.add(doBuild(String.valueOf(index)));
+            bodyList.add(doBuild(key + index, name + index));
         }
         return bodyList;
-
     }
 
-    private MgmtDistributionSetTypeRequestBodyPost doBuild(final String suffix) {
+    private MgmtDistributionSetTypeRequestBodyPost doBuild(final String key, final String name) {
         final MgmtDistributionSetTypeRequestBodyPost body = new MgmtDistributionSetTypeRequestBodyPost();
-        body.setKey(key + suffix);
-        body.setName(name + suffix);
+        body.setKey(key);
+        body.setName(name);
         body.setDescription(description);
         body.setMandatorymodules(mandatorymodules);
         body.setOptionalmodules(optionalmodules);
         return body;
     }
-
 }
