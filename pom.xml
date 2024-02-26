@@ -62,7 +62,7 @@
 
    <properties>
       <revision>0-SNAPSHOT</revision>
-      <hawkbit.version>0-SNAPSHOT</hawkbit.version>
+      <hawkbit.version>0.3.0M2</hawkbit.version>
       
       <!-- Release - START -->
       <release.scm.connection>scm:git:git@github.com:eclipse/hawkbit-examples.git</release.scm.connection>
