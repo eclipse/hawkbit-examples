@@ -30,6 +30,7 @@ public class TargetBuilder {
     private String description;
     private String address;
     private Boolean requestAttributes;
+    private Long targetType;
 
     /**
      * @param controllerId
@@ -38,6 +39,16 @@ public class TargetBuilder {
      */
     public TargetBuilder controllerId(final String controllerId) {
         this.controllerId = controllerId;
+        return this;
+    }
+
+    /**
+     * @param targetType
+     *            the ID of the target type
+     * @return the builder itself
+     */
+    public TargetBuilder targetType(final long targetType) {
+        this.targetType = targetType;
         return this;
     }
 
@@ -135,6 +146,7 @@ public class TargetBuilder {
         body.setDescription(description);
         body.setAddress(address);
         body.setRequestAttributes(requestAttributes);
+        body.setTargetType(targetType);
         return body;
     }
 
